@@ -3,707 +3,315 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Чувствительность для Free Fire</title>
+    <title>FF Sensitivity Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --bg-color: #050a0a;
+            --card-bg: #0d1414;
+            --accent-color: #00ffcc;
+            --text-main: #ffffff;
+            --text-dim: #94a3b8;
+            --border-color: #1e293b;
         }
 
         body {
-            background: linear-gradient(135deg, #001f3f, #003366);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            color: white;
-            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
             padding: 20px;
-        }
-
-        .page {
-            display: none;
-        }
-
-        .page.active {
-            display: block;
-            animation: fadeIn 0.4s ease;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-            position: relative;
-        }
-
-        .site-title {
-            font-size: 2.5rem;
-            font-weight: 300;
-            letter-spacing: 1px;
-            background: linear-gradient(90deg, #007AFF, #00c853);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 10px;
-        }
-
-        .designer-credit {
-            position: absolute;
-            top: 10px;            right: 20px;
-            font-size: 0.9rem;
-            color: #a0b8d0;
-            background: rgba(10, 25, 47, 0.7);
-            padding: 5px 10px;
-            border-radius: 10px;
-            border: 1px solid rgba(64, 156, 255, 0.2);
-        }
-
-        .content-section {
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        .welcome-section {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .welcome-title {
-            font-size: 2.2rem;
-            font-weight: 300;
-            margin-bottom: 5px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .welcome-text {
-            color: #a0b8d0;
-            font-size: 1.1rem;
-        }
-
-        .auth-container {
-            background: rgba(10, 25, 47, 0.9);
-            border-radius: 30px;
-            padding: 30px;
-            box-shadow: 
-                0 20px 50px rgba(0, 0, 0, 0.5),
-                inset 0 0 20px rgba(0, 40, 80, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(64, 156, 255, 0.2);
-        }
-
-        .form-title {
-            text-align: center;
-            margin-bottom: 25px;
-            font-weight: 400;
-            color: #a0b8d0;
-            font-size: 1.8rem;
-        }
-        .auth-input {
-            width: 100%;
-            padding: 16px 20px;
-            margin-bottom: 15px;
-            background: rgba(15, 35, 60, 0.7);
-            border: 1px solid rgba(64, 156, 255, 0.2);
-            border-radius: 15px;
-            color: white;
-            font-size: 1rem;
-            outline: none;
-            transition: all 0.3s;
-        }
-
-        .auth-input:focus {
-            border-color: #007AFF;
-            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
-            background: rgba(20, 45, 75, 0.8);
-        }
-
-        .auth-btn {
-            width: 100%;
-            padding: 16px;
-            border: none;
-            border-radius: 15px;
-            font-size: 1.1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 
-                0 4px 8px rgba(0, 0, 0, 0.3),
-                inset 0 2px 4px rgba(255, 255, 255, 0.05);
-            position: relative;
-            overflow: hidden;
-            margin-top: 10px;
-        }
-
-        .auth-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg,255, 255, 255, 0.1), transparent);
-            transition: left 0.5s;
-        }
-
-        .auth-btn:hover::before {
-            left: 100%;
-        }
-        .auth-btn:active {
-            transform: scale(0.97);
-            box-shadow: 
-                0 2px 4px rgba(0, 0, 0, 0.2),
-                inset 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn-register {
-            background: linear-gradient(145deg, #007AFF, #0062cc);
-            color: white;
-        }
-
-        .btn-login {
-            background: linear-gradient(145deg, #00c853, #009624);
-            color: white;
-        }
-
-        .btn-logout {
-            background: linear-gradient(145deg, #ff5252, #d32f2f);
-            color: white;
-        }
-
-        .btn-go-to-phones {
-            background: linear-gradient(145deg, #9c27b0, #7b1fa2);
-            color: white;
-        }
-
-        .switch-link {
-            text-align: center;
-            margin-top: 15px;
-            color: #a0b8d0;
-            font-size: 0.95rem;
-        }
-
-        .switch-link a {
-            color: #007AFF;
-            text-decoration: none;
-            font-weight: 500;
-            cursor: pointer;
-        }
-
-        .switch-link a:hover {
-            text-decoration: underline;
-        }
-
-        .auth-form {
-            display: none;
-        }
-        .auth-form.active {
-            display: block;
-            animation: fadeIn 0.4s ease;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .profile-section {
-            text-align: center;
-            animation: fadeIn 0.4s ease;
-        }
-
-        .username-display {
-            margin: 30px 0;
-            padding: 15px;
-            border-radius: 15px;
-            background: rgba(0, 122, 255, 0.15);
-            border: 1px solid rgba(0, 122, 255, 0.3);
-        }
-
-        #displayedUsername {
-            font-size: 1.8rem;
-            font-weight: 500;
-            color: #007AFF;
-            letter-spacing: 0.5px;
-            text-shadow: 0 0 10px rgba(0, 122, 255, 0.3);
-        }
-
-        /* Страница телефонов */
-        .phones-page .header {
-            margin-bottom: 20px;
-        }
-
-        .search-box {
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .search-box input {
-            width: 100%;
-            max-width: 400px;
-            padding: 15px 20px;
-            border-radius: 15px;
-            border: none;
-            background: rgba(15, 35, 60, 0.7);
-            color: white;
-            font-size: 1rem;
-            border: 1px solid rgba(64, 156, 255, 0.2);            outline: none;
-        }
-
-        .search-box input:focus {
-            border-color: #007AFF;
-            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
-        }
-
-        .phone-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .phone-card {
-            background: rgba(10, 25, 47, 0.9);
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 
-                0 10px 20px rgba(0, 0, 0, 0.3),
-                inset 0 0 10px rgba(0, 40, 80, 0.4);
-            border: 1px solid rgba(64, 156, 255, 0.2);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .phone-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 
-                0 15px 30px rgba(0, 0, 0, 0.4),
-                inset 0 0 15px rgba(0, 80, 160, 0.6);
-            background: rgba(12, 30, 55, 0.95);
-        }
-
-        .phone-name {
-            font-size: 1.4rem;
-            font-weight: 500;
-            margin-bottom: 10px;
-            color: #007AFF;
-        }
-
-        .phone-brand {
-            color: #a0b8d0;
-            font-size: 1rem;
-            margin-bottom: 15px;
-        }
-
-        .view-settings-btn {
-            width: 100%;
-            padding: 12px;            background: linear-gradient(145deg, #007AFF, #0062cc);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .view-settings-btn:hover {
-            background: linear-gradient(145deg, #0062cc, #007AFF);
-        }
-
-        .modal {
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width0%;
-            height: 100%;
-            background-color:, 0, 0, 0.7);
-            display: none;
-            justify-content: center;
+            display: flex;
+            flex-direction: column;
             align-items: center;
         }
 
-        .modal.hidden {
-            display: none;
+        .container {
+            max-width: 500px;
+            width: 100%;
         }
 
-        .modal-content {
-            background: rgba(10, 25, 47, 0.95);
-            border-radius: 20px;
-            width: 90%;
-            max-width: 600px;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            padding: 30px;
-            box-shadow: 
-                0 20px 50px rgba(0, 0, 0, 0.8),
-                inset 0 0 20px rgba(0, 40, 80, 0.6);
-            border: 1px solid rgba(64, 156, 255, 0.3);
-        }
-
-        .close {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 2rem;            font-weight: bold;
-            color: #ff5252;
-            cursor: pointer;
-            background: none;
-            border: none;
-        }
-
-        #modalTitle {
+        header {
             text-align: center;
-            margin-bottom: 25px;
-            color: #00c853;
-            font-size: 1.8rem;
+            margin-bottom: 40px;
         }
 
-        .setting-item {
-            padding: 15px 0;
-            border-bottom: 1px solid rgba(64, 156, 255, 0.1);
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
         }
 
-        .setting-item:last-child {
-            border-bottom: none;
+        .logo-icon {
+            width: 30px;
+            height: 30px;
+            border: 2px solid var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-color);
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
         }
 
-        .setting-label {
+        h1 {
+            font-size: 32px;
+            line-height: 1.2;
+            margin-bottom: 15px;
+        }
+
+        h1 span {
+            color: var(--accent-color);
+        }
+
+        .description {
+            color: var(--text-dim);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        label {
             display: block;
-            margin-bottom: 8px;
-            color: #a0b8d0;
-            font-weight: 500;
+            margin-bottom: 12px;
+            font-weight: 600;
         }
 
-        .setting-value {
-            display: block;
-            font-size: 1.4rem;
-            color: #007AFF;
-            font-weight: 500;
+        /* Search Input */
+        .search-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        input[type="text"] {
+            width: 100%;
+            background: #1a2424;
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            outline: none;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-            100% { transform: scale(1); }
+        input[type="text"]:focus {
+            border-color: var(--accent-color);
         }
 
-        .auth-btn.pulse {
-            animation: pulse 0.3s ease;        }
+        /* Playstyle Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 10px;
+        }
 
-        /* Адаптивность */
-        @media (max-width: 768px) {
-            .phone-list {
-                grid-template-columns: 1fr;
-            }
-            
-            .site-title {
-                font-size: 2rem;
-            }
-            
-            .designer-credit {
-                position: static;
-                margin-top: 10px;
-                display: inline-block;
-            }
+        .option-card {
+            background: #161e1e;
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .option-card.active {
+            border-color: var(--accent-color);
+            background: rgba(0, 255, 204, 0.05);
+        }
+
+        .option-card h4 {
+            margin: 0 0 5px 0;
+            font-size: 16px;
+        }
+
+        .option-card p {
+            margin: 0;
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+
+        /* Ping Select */
+        .ping-options {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .ping-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background: #161e1e;
+            color: white;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .ping-btn.active {
+            border-color: #ffcc00;
+            color: #ffcc00;
+        }
+
+        /* Main Button */
+        .generate-btn {
+            width: 100%;
+            background: var(--accent-color);
+            color: #000;
+            border: none;
+            padding: 18px;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(0, 255, 204, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 13px;
+            padding-bottom: 40px;
+        }
+
+        footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .designed-by {
+            margin-top: 10px;
+            font-weight: bold;
+            color: var(--text-main);
         }
     </style>
 </head>
 <body>
-    <!-- Главная страница с регистрацией -->
-    <div id="homePage" class="page active">
-        <div class="header">
-            <h1 class="site-title">Чувствительность для Free Fire</h1>
-            <div class="designer-credit">
-                <span>Designed by: Esbergen Erdaulet</span>
+
+<div class="container">
+    <header>
+        <div class="logo">
+            <div class="logo-icon">◎</div>
+            FF Sensitivity Generator
+        </div>
+        <h1>Find Your<br><span>Perfect</span> Sensitivity</h1>
+        <p class="description">Generate optimized Free Fire sensitivity settings tailored to your device, playstyle, and network conditions.</p>
+    </header>
+
+    <div class="card">
+        <label>Device Name</label>
+        <div class="search-wrapper">
+            <input type="text" id="deviceInput" list="devices" placeholder="e.g., iPhone 15 Pro, Samsung Galaxy...">
+            <datalist id="devices">
+                </datalist>
+        </div>
+
+        <label style="margin-top: 25px;">Playstyle</label>
+        <div class="grid">
+            <div class="option-card" onclick="selectPlaystyle(this)">
+                <h4>Freestyle</h4>
+                <p>Max speed, 360 flicks</p>
+            </div>
+            <div class="option-card" onclick="selectPlaystyle(this)">
+                <h4>Instaplayer</h4>
+                <p>Very high, instant reactions</p>
+            </div>
+            <div class="option-card" onclick="selectPlaystyle(this)">
+                <h4>Rusher</h4>
+                <p>High, aggressive gameplay</p>
+            </div>
+            <div class="option-card active" onclick="selectPlaystyle(this)">
+                <h4>Balanced</h4>
+                <p>All-around versatile</p>
+            </div>
+            <div class="option-card" onclick="selectPlaystyle(this)">
+                <h4>One-Tap</h4>
+                <p>Precise headshots</p>
+            </div>
+            <div class="option-card" onclick="selectPlaystyle(this)">
+                <h4>Sniper</h4>
+                <p>Long range precision</p>
             </div>
         </div>
 
-        <div class="content-section">
-            <div class="welcome-section">
-                <h2 class="welcome-title">Добро пожаловать</h2>
-                <p class="welcome-text">Войдите или создайте аккаунт</p>
-            </div>
-
-            <div class="auth-container">
-                <!-- Форма регистрации -->
-                <form id="registerForm" class="auth-form active">
-                    <h2 class="form-title">Регистрация</h2>
-                    <input type="text" id="regUsername" class="auth-input" placeholder="Имя пользователя" required>
-                    <input type="password" id="regPassword" class="auth-input" placeholder="Пароль" required>
-                    <input type="email" id="regEmail" class="auth-input" placeholder="Email (опционально)">
-                    <button type="submit" class="auth-btn btn-register">Зарегистрироваться</button>
-                    <p class="switch-link">Уже есть аккаунт? <a href="#" id="showLogin">Войти</a></p>
-                </form>
-
-                <!-- Форма входа -->
-                <form id="loginForm" class="auth-form">
-                    <h2 class="form-title">Вход</h2>                    <input type="text" id="loginUsername" class="auth-input" placeholder="Имя пользователя" required>
-                    <input type="password" id="loginPassword" class="auth-input" placeholder="Пароль" required>
-                    <button type="submit" class="auth-btn btn-login">Войти</button>
-                    <p class="switch-link">Нет аккаунта? <a href="#" id="showRegister">Зарегистрироваться</a></p>
-                </form>
-
-                <!-- Панель профиля -->
-                <div id="profileSection" class="profile-section hidden">
-                    <h2 class="profile-title">Профиль</h2>
-                    <div class="username-display">
-                        <span id="displayedUsername">Гость</span>
-                    </div>
-                    <button id="logoutBtn" class="auth-btn btn-logout">Выйти</button>
-                    
-                    <!-- Кнопка перехода к списку телефонов -->
-                    <button id="goToPhonesBtn" class="auth-btn btn-go-to-phones">Список телефонов</button>
-                </div>
-            </div>
+        <label style="margin-top: 25px;">Average Ping</label>
+        <div class="ping-options">
+            <div class="ping-btn" onclick="selectPing(this)">Low <br><small>0-40 ms</small></div>
+            <div class="ping-btn active" onclick="selectPing(this)">Medium <br><small>41-80 ms</small></div>
+            <div class="ping-btn" onclick="selectPing(this)">High <br><small>81+ ms</small></div>
         </div>
+
+        <button class="generate-btn" onclick="generateSensi()">✨ Generate Sensitivity</button>
     </div>
 
-    <!-- Страница с телефонами -->
-    <div id="phonesPage" class="page phones-page">
-        <div class="header">
-            <h1 class="site-title">Чувствительность для Free Fire</h1>
-            <div class="designer-credit">
-                <span>Designed by: Esbergen Erdaulet</span>
-            </div>
-        </div>
+    <footer>
+        <p>Email for help: <a href="mailto:esbergenerdaulet777@gmail.com">esbergenerdaulet777@gmail.com</a></p>
+        <div class="designed-by">Designed by: Esbergen Erdaulet</div>
+        <p style="font-size: 11px; margin-top: 20px; opacity: 0.5;">Not affiliated with Garena. Test in Training Ground and adjust as needed.</p>
+    </footer>
+</div>
 
-        <div class="container">
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Поиск по модели телефона...">
-            </div>
+<script>
+    // Массив моделей телефонов
+    const phoneModels = [
+        "iPhone SE (2016)", "iPhone SE (2020)", "iPhone SE (2022)", "iPhone 6", "iPhone 6 Plus", "iPhone 6s", "iPhone 6s Plus", "iPhone 7", "iPhone 7 Plus", "iPhone 8", "iPhone 8 Plus", "iPhone X", "iPhone XR", "iPhone XS", "iPhone XS Max", "iPhone 11", "iPhone 11 Pro", "iPhone 11 Pro Max", "iPhone 12 mini", "iPhone 12", "iPhone 12 Pro", "iPhone 12 Pro Max", "iPhone 13 mini", "iPhone 13", "iPhone 13 Pro", "iPhone 13 Pro Max", "iPhone 14", "iPhone 14 Plus", "iPhone 14 Pro", "iPhone 14 Pro Max", "iPhone 15", "iPhone 15 Plus", "iPhone 15 Pro", "iPhone 15 Pro Max", "iPhone 16", "iPhone 16 Plus", "iPhone 16 Pro", "iPhone 16 Pro Max",
+        "Samsung Galaxy S8", "Samsung Galaxy S8+", "Samsung Galaxy S9", "Samsung Galaxy S9+", "Samsung Galaxy S10e", "Samsung Galaxy S10", "Samsung Galaxy S10+", "Samsung Galaxy S20", "Samsung Galaxy S20+", "Samsung Galaxy S20 Ultra", "Samsung Galaxy S21", "Samsung Galaxy S21+", "Samsung Galaxy S21 Ultra", "Samsung Galaxy S22", "Samsung Galaxy S22+", "Samsung Galaxy S22 Ultra", "Samsung Galaxy S23", "Samsung Galaxy S23+", "Samsung Galaxy S23 Ultra", "Samsung Galaxy S23 FE", "Samsung Galaxy S24", "Samsung Galaxy S24+", "Samsung Galaxy S24 Ultra", "Samsung Galaxy Z Flip6", "Samsung Galaxy Z Fold6", "Samsung Galaxy A55", "Samsung Galaxy A35", "Samsung Galaxy M51",
+        "Google Pixel 9 Pro XL", "Google Pixel 9", "Google Pixel 8 Pro", "Google Pixel 7a", "Google Pixel Fold",
+        "Xiaomi 14 Ultra", "Xiaomi 13T Pro", "Xiaomi 12 Pro", "Xiaomi Mi 11 Ultra",
+        "Redmi Note 13 Pro+", "Redmi Note 12", "Redmi 13C", "Redmi Note 11S",
+        "POCO F6 Pro", "POCO X6 Pro", "POCO F5", "POCO M6 Pro",
+        "OnePlus 12", "OnePlus 11", "OnePlus Open", "OnePlus Nord 4",
+        "Nothing Phone (2)", "Nothing Phone (2a)",
+        "Tecno Pova 6 Pro", "Tecno Camon 30 Premier", "Tecno Spark 20 Pro+",
+        "Infinix Note 40 Pro", "Infinix GT 20 Pro", "Infinix Zero 30"
+    ];
 
-            <div class="phone-list" id="phoneList">
-                <!-- Список телефонов будет сгенерирован здесь -->
-            </div>
-        </div>
+    // Заполнение списка подсказок
+    const dataList = document.getElementById('devices');
+    phoneModels.forEach(model => {
+        let option = document.createElement('option');
+        option.value = model;
+        dataList.appendChild(option);
+    });
 
-        <div id="modal" class="modal hidden">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2 id="modalTitle">Настройки для: <span id="selectedPhoneName"></span></h2>
-                <div id="sensitivitySettings">
-                    <!-- Настройки будут загружены сюда -->
-                </div>
-            </div>
-        </div>
-    </div>
-    <script>
-        // Пример данных телефонов
-        const phoneData = [
-            { brand: "Apple", model: "iPhone 15 Pro Max", sensitivities: { overview: 120, red_dot: 110, scope_2x: 105, scope_4x: 100, sniper_scope: 80, free_look: 150, fire_button: 55, dpi: 120 } },
-            { brand: "Samsung", model: "Galaxy S24 Ultra", sensitivities: { overview: 115, red_dot: 105, scope_2x: 100, scope_4x: 95, sniper_scope: 75, free_look: 145, fire_button: 50, dpi: 500 } },
-            { brand: "Xiaomi", model: "14 Ultra", sensitivities: { overview: 110, red_dot: 100, scope_2x: 95, scope_4x: 90, sniper_scope: 70, free_look: 140, fire_button: 48, dpi: 460 } },
-            { brand: "Google", model: "Pixel 8 Pro", sensitivities: { overview: 105, red_dot: 95, scope_2x: 90, scope_4x: 85, sniper_scope: 65, free_look: 135, fire_button: 45, dpi: 420 } },
-            { brand: "Huawei", model: "Pura 70 Ultra", sensitivities: { overview: 100, red_dot: 90, scope_2x: 85, scope_4x: 80, sniper_scope: 60, free_look: 130, fire_button: 42, dpi: 480 } },
-            { brand: "OPPO", model: "Find X7 Ultra", sensitivities: { overview: 125, red_dot: 115, scope_2x: 110, scope_4x: 105, sniper_scope: 85, free_look: 155, fire_button: 58, dpi: 520 } },
-            { brand: "Vivo", model: "X100 Pro+", sensitivities: { overview: 108, red_dot: 98, scope_2x: 93, scope_4x: 88, sniper_scope: 68, free_look: 138, fire_button: 47, dpi: 450 } },
-            { brand: "OnePlus", model: "12 Pro", sensitivities: { overview: 112, red_dot: 102, scope_2x: 97, scope_4x: 92, sniper_scope: 72, free_look: 142, fire_button: 52, dpi: 480 } },
-            { brand: "Sony", model 1 VI", sensitivities: { overview: 118, red_dot: 108, scope_2x: 103, scope_4x: 98, sniper_scope: 78, free_look: 148, fire_button: 56, dpi: 520 } },
-            { brand: "Motorola", model: "Edge 50 Pro", sensitivities: { overview: 105, red_dot: 95, scope_2x: 90, scope_4x: 85, sniper_scope: 65, free_look: 135, fire_button: 45, dpi: 400 } }
-        ];
+    // Функции выбора
+    function selectPlaystyle(element) {
+        document.querySelectorAll('.option-card').forEach(el => el.classList.remove('active'));
+        element.classList.add('active');
+    }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            // DOM элементы главной страницы
-            const homePage = document.getElementById('homePage');
-            const phonesPage = document.getElementById('phonesPage');
-            const registerForm = document.getElementById('registerForm');
-            const loginForm = document.getElementById('loginForm');
-            const profileSection = document.getElementById('profileSection');
-            const displayedUsername = document.getElementById('displayedUsername');
-            const logoutBtn = document.getElementById('logoutBtn');
-            const showLoginLink = document.getElementById('showLogin');
-            const showRegisterLink = document.getElementById('showRegister');
-            const goToPhonesBtn = document.getElementById('goToPhonesBtn');
+    function selectPing(element) {
+        document.querySelectorAll('.ping-btn').forEach(el => el.classList.remove('active'));
+        element.classList.add('active');
+    }
 
-            // DOM элементы страницы телефонов
-            const phoneListElement = document.getElementById('phoneList');
-            const searchInput = document.getElementById('searchInput');
-            const modal = document.getElementById('modal');
-            const closeModal = document.querySelector('.close');
-            const modalTitle = document.getElementById('modalTitle');
-            const selectedPhoneName = document.getElementById('selectedPhoneName');
-            const sensitivitySettings = document.getElementById('sensitivitySettings');
+    function generateSensi() {
+        const device = document.getElementById('deviceInput').value;
+        if(!device) {
+            alert("Пожалуйста, введите модель телефона");
+            return;
+        }
+        alert("Генерация настроек для " + device + "...");
+        // Здесь можно добавить логику вычисления цифр
+    }
+</script>
 
-            // Проверяем сохраненного пользователя при загрузке
-            const currentUser = localStorage.getItem('currentUser');
-            if (currentUser) {
-                showProfile(currentUser);
-            } else {
-                showForm('register');
-            }
-
-            // Переключение между страницами
-            goToPhonesBtn.addEventListener('click', () => {
-                homePage.classList.remove('active');
-                phonesPage.classList.add('active');                renderPhoneList(phoneData); // Отображаем список при переходе
-            });
-
-            // Переключение между формами
-            showLoginLink.addEventListener('click', (e) => {
-                e.preventDefault();
-                showForm('login');
-            });
-
-            showRegisterLink.addEventListener('click', (e) => {
-                e.preventDefault();
-                showForm('register');
-            });
-
-            // Регистрация
-            registerForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const username = document.getElementById('regUsername').value.trim();
-                const password = document.getElementById('regPassword').value;
-                const email = document.getElementById('regEmail').value.trim();
-
-                if (!username || !password) return = { username };
-                localStorage.setItem(`user_${username}`, JSON.stringify(user));
-                localStorage.setItem('currentUser', username);
-
-                animateButton(e.submitter);
-                showProfile(username);
-            });
-
-            // Вход
-            loginForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const username = document.getElementById('loginUsername').value.trim();
-                const password = document.getElementById('loginPassword').value;
-
-                const storedUser = localStorage.getItem(`user_${username}`);
-                if (storedUser) {
-                    const userData = JSON.parse(storedUser);
-                    if (userData.password === password) {
-                        localStorage.setItem('currentUser', username);
-                        animateButton(e.submitter);
-                        showProfile(username);
-                    } else {
-                        alert('Неверный пароль');
-                    }
-                } else {
-                    alert('Пользователь не найден');
-                }
-            });
-            // Выход
-            logoutBtn.addEventListener('click', () => {
-                localStorage.removeItem('currentUser');
-                animateButton(logoutBtn);
-                showForm('login');
-            });
-
-            // --- Логика страницы телефонов ---
-            // Функция для отображения списка телефонов
-            function renderPhoneList(phones) {
-                phoneListElement.innerHTML = '';
-                phones.forEach(phone => {
-                    const card = document.createElement('div');
-                    card.className = 'phone-card';
-                    card.innerHTML = `
-                        <div class="phone-brand">${phone.brand}</div>
-                        <div class="phone-name">${phone.model}</div>
-                        <button class="view-settings-btn" data-model="${phone.model}">Посмотреть настройки</button>
-                    `;
-                    phoneListElement.appendChild(card);
-                });
-
-                // Добавляем обработчики кликов на кнопки
-                document.querySelectorAll('.view-settings-btn').forEach(button => {
-                    button.addEventListener('click', () => {
-                        const model = button.getAttribute('data-model');
-                        openModal(model);
-                    });
-                });
-            }
-
-            // Функция для открытия модального окна
-            function openModal(model) {
-                const phone = phoneData.find(p => p.model === model);
-                if (phone) {
-                    selectedPhoneName.textContent = `${phone.brand} ${phone.model}`;
-                    sensitivitySettings.innerHTML = `
-                        <div class="setting-item">
-                            <span class="setting-label">Обзор</span>
-                            <span class="setting-value">${phone.sensitivities.overview}%</span>
-                        </div>
-                        <div class="setting-item">
-                            <span class="setting-label">Колиматор</span>
-                            <span class="setting-value">${phone.sensitivities.red_dot}%</span>
-                        </div>
-                        <div class="setting-item">
-                            <span class="setting-label">2X прицел</span>
-                            <span class="setting-value">${phone.sensitivities.scope_2x}%</span>
-                        </div>
-                        <div class="setting-item">                            <span class="setting-label">4X прицел</span>
-                            <span class="setting-value">${phone.sensitivities.scope_4x}%</span>
-                        </div>
-                        <div class="setting-item">
-                            <span class="setting-label">Снайперский прицел</span>
-                            <span class="setting-value">${phone.sensitivities.sniper_scope}%</span>
-                        </div>
-                        <div class="setting-item">
-                            <span class="setting-label">Свободный обзор</span>
-                            <span class="setting-value">${phone.sensitivities.free_look}%</span>
-                        </div>
-                        <div class="setting-item">
-                            <span class="setting-label">Кнопка огня</span>
-                            <span class="setting-value">${phone.sensitivities.fire_button}</span>
-                        </div>
-                        <div class="setting-item">
-                            <span class="setting-label">DPI</span>
-                            <span class="setting-value">${phone.sensitivities.dpi}</span>
-                        </div>
-                    `;
-                    modal.classList.remove('hidden');
-                }
-            }
-
-            // Поиск на странице телефонов
-            searchInput.addEventListener('input', () => {
-                const query = searchInput.value.toLowerCase();
-                const filteredPhones = phoneData.filter(phone => 
-                    phone.model.toLowerCase().includes(query) || 
-                    phone.brand.toLowerCase().includes(query)
-                );
-                renderPhoneList(filteredPhones);
-            });
-
-            // Закрытие модального окна
-            closeModal.addEventListener('click', () => {
-                modal.classList.add('hidden');
-            });
-
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.classList.add('hidden');
-                }
-            });
-
-            // Функции для главной страницы
-            function showForm(formName) {
-                registerForm.classList.remove('active');
-                loginForm.classList.remove('active');
-                profileSection.classList.add('hidden');
-                if (formName === 'register') {
-                    registerForm.classList.add('active');
-                } else if (formName === 'login') {
-                    loginForm.classList.add('active');
-                }
-            }
-
-            function showProfile(username) {
-                displayedUsername.textContent = username;
-                registerForm.classList.remove('active');
-                loginForm.classList.remove('active');
-                profileSection.classList.remove('hidden');
-            }
-
-            function animateButton(button) {
-                button.classList.add('pulse');
-                setTimeout(() => button.classList.remove('pulse'), 300);
-            }
-        });
-    </script>
 </body>
 </html>
