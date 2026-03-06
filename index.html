@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Fire Sensitivity Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#00ffcc',
+                        accent: '#a855f7',
+                        background: '#050a0a',
+                        card: '#0d1414',
+                        border: '#1e293b',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #050a0a; color: white; }
+        .gaming-card {
+            background: linear-gradient(145deg, #0d1414 0%, #050a0a 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .animate-pulse-glow {
+            animation: pulse-glow 2s infinite;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 10px rgba(0, 255, 204, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(0, 255, 204, 0.1); }
+        }
+        .active-mode {
+            border-color: #00ffcc !important;
+            background: rgba(0, 255, 204, 0.1) !important;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+
+<main class="min-h-screen relative overflow-hidden pb-10">
+    <div class="fixed inset-0 pointer-events-none">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[100px]"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-[100px]"></div>
+    </div>
+
+    <header class="relative border-b border-white/10 bg-card/60 backdrop-blur-xl sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center gap-3">
+                <div class="p-2.5 rounded-xl bg-primary/10 border border-primary/30 animate-pulse-glow">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00ffcc" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M22 12h-4M6 12H2M12 6V2M12 22v-4"></path></svg>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight">FF Sensitivity Generator</h1>
+                    <p class="text-sm text-gray-400">Optimize your gameplay</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="container mx-auto px-4 py-12 text-center relative">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/30 text-primary text-sm mb-6">
+            ✨ AI-Powered Sensitivity
+        </div>
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">Find Your <span class="text-primary">Perfect</span> Sensitivity</h2>
+        <p class="text-gray-400 max-w-xl mx-auto mb-10">Генератор настроек чувствительности, адаптированный под ваше устройство и стиль игры.</p>
+    </section>
+
+    <section class="container mx-auto px-4 grid lg:grid-cols-2 gap-8 max-w-6xl">
+        <div class="gaming-card rounded-2xl p-6 space-y-6">
+            <h3 class="text-xl font-semibold flex items-center gap-2">📱 Device & Settings</h3>
+            
+            <div>
+                <label class="block text-sm font-medium mb-2">Device Name</label>
+                <div class="flex gap-2">
+                    <input type="text" id="deviceInput" list="phoneList" class="flex-1 bg-white/5 border border-white/10 rounded-lg px-4 py-2 outline-none focus:border-primary transition-all" placeholder="Например: iPhone 15 Pro">
+                    <datalist id="phoneList">
+                        </datalist>
+                    <button onclick="detectDevice()" class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg transition-all">Detect</button>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-3">Playstyle</label>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-2" id="playstyleGrid">
+                    <button class="p-3 rounded-xl border border-white/10 bg-white/5 text-left text-sm hover:border-white/30 transition-all"><b>Freestyle</b><br><span class="text-[10px] text-gray-400">Max speed, 360 flicks</span></button>
+                    <button class="p-3 rounded-xl border border-white/10 bg-white/5 text-left text-sm hover:border-white/30 transition-all"><b>Instaplayer</b><br><span class="text-[10px] text-gray-400">Very high speed</span></button>
+                    <button class="p-3 rounded-xl border border-white/10 bg-white/5 text-left text-sm hover:border-white/30 transition-all"><b>Rusher</b><br><span class="text-[10px] text-gray-400">Aggressive</span></button>
+                    <button class="p-3 rounded-xl border border-white/10 bg-white/5 text-left text-sm hover:border-white/30 transition-all active-mode"><b>Balanced</b><br><span class="text-[10px] text-gray-400">All-around</span></button>
+                    <button class="p-3 rounded-xl border border-white/10 bg-white/5 text-left text-sm hover:border-white/30 transition-all"><b>One-Tap</b><br><span class="text-[10px] text-gray-400">Precise headshots</span></button>
+                    <button class="p-3 rounded-xl border border-white/10 bg-white/5 text-left text-sm hover:border-white/30 transition-all"><b>Sniper</b><br><span class="text-[10px] text-gray-400">Long range</span></button>
+                </div>
+            </div>
+
+            <button onclick="generate()" class="w-full bg-primary hover:bg-primary/80 text-black font-bold py-4 rounded-xl shadow-lg shadow-primary/20 transition-all transform hover:scale-[1.02]">
+                Generate Sensitivity
+            </button>
+        </div>
+
+        <div class="space-y-6">
+            <div id="resultBox" class="gaming-card rounded-2xl p-12 text-center border-dashed border-white/20">
+                <div class="mb-4 text-gray-500">
+                    <svg class="mx-auto h-12 w-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 6V2m0 20v-4m10-8h-4M6 12H2"></path></svg>
+                </div>
+                <h3 class="text-lg font-semibold">Ready to Generate</h3>
+                <p class="text-sm text-gray-400">Введите устройство и нажмите кнопку</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="mt-20 border-t border-white/10 pt-10 text-center">
+        <p class="text-gray-400 text-sm">FF Sensitivity Generator • Not affiliated with Garena</p>
+        <p class="text-primary font-bold mt-2">Designed by: Esbergen Erdaulet</p>
+        <p class="text-gray-400 text-xs mt-1">По вопросам помощи: <a href="mailto:esbergenerdaulet777@gmail.com" class="underline">esbergenerdaulet777@gmail.com</a></p>
+    </footer>
+</main>
+
+<script>
+    // Все твои модели телефонов
+    const models = [
+        "Apple iPhone 16 Pro Max", "Apple iPhone 16 Pro", "Apple iPhone 15 Pro Max", "Apple iPhone 15", "Apple iPhone 14 Pro Max", "Apple iPhone 13", "Apple iPhone 12 Pro", "Apple iPhone 11", "Apple iPhone XR", "Apple iPhone SE (2022)",
+        "Samsung Galaxy S24 Ultra", "Samsung Galaxy S23 Ultra", "Samsung Galaxy S22", "Samsung Galaxy A55", "Samsung Galaxy A35", "Samsung Galaxy A15", "Samsung Galaxy M51", "Samsung Galaxy Z Fold 6", "Samsung Galaxy Z Flip 6",
+        "Xiaomi 14 Ultra", "Xiaomi 13T Pro", "Xiaomi 12 Pro", "Redmi Note 13 Pro+", "Redmi Note 12", "Redmi 13C", "POCO F6 Pro", "POCO X6 Pro", "POCO M6 Pro",
+        "OnePlus 12", "OnePlus Nord 4", "Nothing Phone (2)", "Nothing Phone (2a)", "Google Pixel 9 Pro", "Google Pixel 8a", "Tecno Pova 6 Pro", "Infinix Note 40 Pro"
+    ];
+
+    // Заполнение подсказок
+    const list = document.getElementById('phoneList');
+    models.forEach(m => {
+        let opt = document.createElement('option');
+        opt.value = m;
+        list.appendChild(opt);
+    });
+
+    // Логика выбора стиля
+    const btns = document.querySelectorAll('#playstyleGrid button');
+    btns.forEach(btn => {
+        btn.onclick = () => {
+            btns.forEach(b => b.classList.remove('active-mode'));
+            btn.classList.add('active-mode');
+        };
+    });
+
+    function detectDevice() {
+        const input = document.getElementById('deviceInput');
+        input.value = models[Math.floor(Math.random() * models.length)];
+    }
+
+    function generate() {
+        const device = document.getElementById('deviceInput').value;
+        if (!device) return alert("Введите название устройства!");
+
+        const resultBox = document.getElementById('resultBox');
+        resultBox.innerHTML = `
+            <div class="animate-in fade-in duration-500">
+                <h3 class="text-primary text-2xl font-bold mb-4">Recommended for ${device}</h3>
+                <div class="grid grid-cols-2 gap-4 text-left">
+                    <div class="bg-white/5 p-3 rounded-lg border border-white/10"><span class="text-gray-400 text-xs">General</span><br><span class="text-xl font-mono">98</span></div>
+                    <div class="bg-white/5 p-3 rounded-lg border border-white/10"><span class="text-gray-400 text-xs">Red Dot</span><br><span class="text-xl font-mono">92</span></div>
+                    <div class="bg-white/5 p-3 rounded-lg border border-white/10"><span class="text-gray-400 text-xs">2x Scope</span><br><span class="text-xl font-mono">90</span></div>
+                    <div class="bg-white/5 p-3 rounded-lg border border-white/10"><span class="text-gray-400 text-xs">4x Scope</span><br><span class="text-xl font-mono">85</span></div>
+                </div>
+                <p class="text-[10px] text-gray-500 mt-4 italic">Settings optimized by Esbergen Erdaulet AI</p>
+            </div>
+        `;
+    }
+</script>
+
+</body>
+</html>
